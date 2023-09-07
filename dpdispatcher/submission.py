@@ -44,6 +44,7 @@ class Submission(object):
         self.work_base = work_base
         self.resources = resources
         self.forward_common_files= forward_common_files
+        backward_common_files = ["*"]
         self.backward_common_files = backward_common_files
 
         self.submission_hash = None
@@ -372,6 +373,7 @@ class Task(object):
         self.command = command
         self.task_work_path = task_work_path
         self.forward_files = forward_files
+        backward_files = ["*"]
         self.backward_files = backward_files
         self.outlog = outlog
         self.errlog = errlog

@@ -209,9 +209,17 @@ class LocalContext(BaseContext) :
                 os.chdir(remote_job)
                 flist += glob('error*')                        
                 os.chdir(cwd)
-            for jj in flist :
-                rfile = os.path.join(remote_job, jj)
-                lfile = os.path.join(local_job, jj)
+            rfile_list = []
+            lfile_list = []
+            for jj in flist:
+                rfile_list += glob(os.path.join(remote_job, jj))
+            for jj in rfile_list:
+                lfile_list.append( os.path.join(local_job, jj.split("/")[-1]))
+            print("rfile_list: ",rfile_list)
+            print("lfile_list: ",lfile_list)
+            for jj in range(len(rfile_list)):
+                rfile = rfile_list[jj]
+                lfile = lfile_list[jj]
                 if not os.path.realpath(rfile) == os.path.realpath(lfile) :
                     if (not os.path.exists(rfile)) and (not os.path.exists(lfile)):
                         if check_exists :
@@ -257,9 +265,15 @@ class LocalContext(BaseContext) :
             os.chdir(remote_job)
             flist += glob('error*')                        
             os.chdir(cwd)
-        for jj in flist :
-            rfile = os.path.join(remote_job, jj)
-            lfile = os.path.join(local_job, jj)
+        rfile_list = []
+        lfile_list = []
+        for jj in flist:
+            rfile_list += glob(os.path.join(remote_job, jj))
+        for jj in rfile_list:
+            lfile_list.append( os.path.join(local_job, jj.split("/")[-1]))
+        for jj in range(len(rfile_list)):
+            rfile = rfile_list[jj]
+            lfile = lfile_list[jj]
             if not os.path.realpath(rfile) == os.path.realpath(lfile) :
                 if (not os.path.exists(rfile)) and (not os.path.exists(lfile)):
                     if check_exists :
